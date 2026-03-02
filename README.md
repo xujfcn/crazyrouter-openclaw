@@ -23,7 +23,7 @@ bash install.sh
 
 ### 需要准备
 
-1. **Crazyrouter API Key** — 在 [crazyrouter.com](https://crazyrouter.com) 注册并获取
+1. **Crazyrouter API Key** — 在 [crazyrouter.com](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=dev_community) 注册并获取
 2. **Telegram Bot Token**（可选）— 在 Telegram 找 @BotFather 创建 Bot 后获取
 
 ### 安装内容
@@ -124,7 +124,7 @@ The installer supports both Chinese and English — you'll be prompted to choose
 
 ### Prerequisites
 
-1. **Crazyrouter API Key** — Sign up at [crazyrouter.com](https://crazyrouter.com)
+1. **Crazyrouter API Key** — Sign up at [crazyrouter.com](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=dev_community)
 2. **Telegram Bot Token** (optional) — Create a bot via @BotFather on Telegram
 
 ### What Gets Installed
@@ -212,4 +212,4 @@ launchctl stop com.crazyrouter.openclaw                                         
 
 ---
 
-Powered by [Crazyrouter](https://crazyrouter.com)
+Powered by [Crazyrouter](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=dev_community)
