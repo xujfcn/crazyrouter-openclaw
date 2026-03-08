@@ -21,6 +21,52 @@ wget https://raw.githubusercontent.com/xujfcn/crazyrouter-openclaw/main/install.
 bash install.sh
 ```
 
+### macOS 用户须知 🍎
+
+脚本会自动安装 Node.js，但需要 **Homebrew** 作为包管理器。如果你的 Mac 还没有安装 Homebrew：
+
+#### 1. 安装 Homebrew
+
+打开终端（Terminal），运行：
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+安装完成后，**按照终端提示**把 Homebrew 添加到 PATH。通常会提示你运行类似这两条命令：
+
+```bash
+# Apple Silicon (M1/M2/M3/M4)
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Intel Mac
+echo 'eval "$(/usr/local/bin/brew shellenv)"' >> ~/.zprofile
+eval "$(/usr/local/bin/brew shellenv)"
+```
+
+验证安装：
+
+```bash
+brew --version
+```
+
+#### 2. （可选）手动安装 Node.js 22+
+
+脚本会自动通过 Homebrew 安装 Node.js，但如果你想提前安装：
+
+```bash
+brew install node@22
+brew link --overwrite node@22
+node -v  # 应显示 v22.x.x
+```
+
+#### 3. 运行安装脚本
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/xujfcn/crazyrouter-openclaw/main/install.sh | bash
+```
+
 ### 需要准备
 
 1. **Crazyrouter API Key** — 在 [crazyrouter.com](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=dev_community) 注册并获取
@@ -84,6 +130,68 @@ launchctl stop com.crazyrouter.openclaw && launchctl start com.crazyrouter.openc
 launchctl stop com.crazyrouter.openclaw                                              # 停止
 ```
 
+### 常见问题
+
+<details>
+<summary><b>macOS: "command not found: brew"</b></summary>
+
+Homebrew 未安装或未添加到 PATH。请先安装 Homebrew：
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+然后按终端提示添加到 PATH，或重新打开终端窗口。
+
+</details>
+
+<details>
+<summary><b>macOS: "command not found: node"（安装后）</b></summary>
+
+Node.js 通过 Homebrew 安装后可能需要 link：
+
+```bash
+brew link --overwrite node@22
+```
+
+或重新打开终端窗口。
+
+</details>
+
+<details>
+<summary><b>端口 18789 被占用</b></summary>
+
+修改端口：
+
+```bash
+GATEWAY_PORT=28789 curl -fsSL https://raw.githubusercontent.com/xujfcn/crazyrouter-openclaw/main/install.sh | bash
+```
+
+或编辑 `~/.openclaw/openclaw.json` 中的 `gateway.port`。
+
+</details>
+
+<details>
+<summary><b>如何卸载？</b></summary>
+
+```bash
+# 停止服务
+# Linux:
+systemctl --user stop openclaw && systemctl --user disable openclaw
+
+# macOS:
+launchctl stop com.crazyrouter.openclaw
+rm ~/Library/LaunchAgents/com.crazyrouter.openclaw.plist
+
+# 删除数据和配置
+rm -rf ~/.openclaw
+
+# 卸载 npm 包
+npm uninstall -g openclaw
+```
+
+</details>
+
 ### 支持的 IM 平台
 
 - Telegram（安装时交互式设置）
@@ -121,6 +229,52 @@ bash install.sh
 ```
 
 The installer supports both Chinese and English — you'll be prompted to choose a language at startup.
+
+### macOS Users 🍎
+
+The script auto-installs Node.js, but requires **Homebrew** as the package manager. If you don't have Homebrew yet:
+
+#### 1. Install Homebrew
+
+Open Terminal and run:
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+After installation, **follow the terminal instructions** to add Homebrew to your PATH. You'll typically need to run something like:
+
+```bash
+# Apple Silicon (M1/M2/M3/M4)
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Intel Mac
+echo 'eval "$(/usr/local/bin/brew shellenv)"' >> ~/.zprofile
+eval "$(/usr/local/bin/brew shellenv)"
+```
+
+Verify:
+
+```bash
+brew --version
+```
+
+#### 2. (Optional) Pre-install Node.js 22+
+
+The script handles this automatically via Homebrew, but if you prefer:
+
+```bash
+brew install node@22
+brew link --overwrite node@22
+node -v  # Should show v22.x.x
+```
+
+#### 3. Run the installer
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/xujfcn/crazyrouter-openclaw/main/install.sh | bash
+```
 
 ### Prerequisites
 
@@ -185,23 +339,77 @@ launchctl stop com.crazyrouter.openclaw && launchctl start com.crazyrouter.openc
 launchctl stop com.crazyrouter.openclaw                                              # Stop
 ```
 
+### Troubleshooting
+
+<details>
+<summary><b>macOS: "command not found: brew"</b></summary>
+
+Homebrew is not installed or not in PATH. Install it first:
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+Then follow the terminal instructions to add it to PATH, or reopen your terminal.
+
+</details>
+
+<details>
+<summary><b>macOS: "command not found: node" (after install)</b></summary>
+
+Node.js installed via Homebrew may need linking:
+
+```bash
+brew link --overwrite node@22
+```
+
+Or reopen your terminal window.
+
+</details>
+
+<details>
+<summary><b>Port 18789 already in use</b></summary>
+
+Change the port:
+
+```bash
+GATEWAY_PORT=28789 curl -fsSL https://raw.githubusercontent.com/xujfcn/crazyrouter-openclaw/main/install.sh | bash
+```
+
+Or edit `gateway.port` in `~/.openclaw/openclaw.json`.
+
+</details>
+
+<details>
+<summary><b>How to uninstall?</b></summary>
+
+```bash
+# Stop the service
+# Linux:
+systemctl --user stop openclaw && systemctl --user disable openclaw
+
+# macOS:
+launchctl stop com.crazyrouter.openclaw
+rm ~/Library/LaunchAgents/com.crazyrouter.openclaw.plist
+
+# Remove data and config
+rm -rf ~/.openclaw
+
+# Uninstall npm package
+npm uninstall -g openclaw
+```
+
+</details>
+
 ### Supported IM Platforms
 
 - Telegram (interactive setup during install)
 - Discord
 - Slack
-- Lark (Feishu)
+- Feishu (Lark)
 - DingTalk
 - WeCom (WeChat Work)
 - QQ Bot
-
-### Files
-
-| File | Description |
-|------|-------------|
-| `install.sh` | One-click install script |
-| `crash-guard.cjs` | TLS crash guard patch |
-| `README.md` | This document |
 
 ### System Requirements
 
@@ -212,4 +420,12 @@ launchctl stop com.crazyrouter.openclaw                                         
 
 ---
 
-Powered by [Crazyrouter](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=dev_community)
+## License
+
+MIT
+
+## Links
+
+- [Crazyrouter](https://crazyrouter.com?utm_source=github&utm_medium=github&utm_campaign=dev_community) — AI API Gateway
+- [OpenClaw](https://github.com/openclaw/openclaw) — Self-hosted AI Assistant
+- [OpenClaw Docs](https://docs.openclaw.ai)
